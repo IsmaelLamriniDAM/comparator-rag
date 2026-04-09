@@ -1,0 +1,41 @@
+<div class="bg-red-500/30 rounded-t-xl text-center p-2">
+    <app-window-info [infoText]="infoPriceBelowMarket"></app-window-info>
+    <h4>Dinero a Perder: Precio Compra < Precio Moda</h4>
+
+</div>
+ <div class = "grid grid-cols-2 gap-2 justify-items-center mt-2">
+
+        <div class="text-left">
+            <h5 class="flex items-center justify-between">
+                <span>{{ recivedStatistic.marketMostFrequentPrice }}</span>
+                <span>€</span>
+            </h5>
+            -
+            <h5 class="flex items-center justify-between">
+                <span>{{halfPriceUser}}</span>
+                <span>€</span>
+            </h5>
+
+            <div class="border border-b-4 border-white w-full"></div>
+
+            <div class="flex justify-between">
+                 <h5 class="flex items-center justify-between">
+                    <span>{{recivedStatistic.priceIncreaseNeededToReachMarket.money}}</span>
+                    <span>€</span>
+                </h5>
+            </div>
+        </div>
+
+        <div class="text-left">
+            <div>
+                <h5>{{recivedStatistic.marketMostFrequentPrice}} - {{halfPriceUser}}</h5>
+                    -------------------- * 100  = {{recivedStatistic.priceIncreaseNeededToReachMarket.percentage}} %
+                    <h5>{{recivedStatistic.marketMostFrequentPrice}}</h5>
+            </div>
+
+            <div>
+                <h5>Porcentaje Pérdida: {{recivedStatistic.priceIncreaseNeededToReachMarket.percentage}} %</h5>
+            </div>
+        </div>
+ </div>
+

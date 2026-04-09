@@ -1,0 +1,71 @@
+<section class="pt-20 sm:px-6 lg:px-8">
+        <div class="text-center max-w-4xl mx-auto">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl text-white font-bold mb-5">Maximiza la <span class="bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] bg-clip-text text-transparent">Rentabilidad</span> de tus operaciones</h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 text-pretty">
+                Analiza precios del mercado en tiempo real, compara con todas las páginas de venta públicas y obtén recomendaciones precisas de beneficio antes de actuar.
+            </p>
+            <div class="flex items-center justify-center gap-5">
+                <button class="p-3 bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] cursor-pointer rounded-2xl text-slate-950 font-bold hover:scale-105 transition-all duration-300">
+                    <div [routerLink]="['/register']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" class="text-center flex items-center justify-center gap-3">
+                        Comenzar gratis
+                        <i class="pi pi-arrow-right text-slate-950"></i>
+                    </div>
+                </button>
+                <button class="p-3 border-2 border-slate-700 bg-transparent cursor-pointer rounded-2xl text-slate-300 hover:text-white hover:bg-slate-800 font-bold transition-all duration-300">
+                    <div class="text-center flex items-center justify-center gap-3">
+                        Ver como funciona
+                    </div>
+                </button>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-10">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass-card shadow-xl">
+                    <i class="pi pi-stopwatch bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] bg-clip-text text-transparent"></i>
+                    Análisis en tiempo real
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass-card shadow-xl">
+                    <i class="pi pi-shield bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] bg-clip-text text-transparent"></i>
+                    Datos verificados
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl glass-card shadow-xl">
+                    <i class="pi pi-filter bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] bg-clip-text text-transparent"></i>
+                    Resultados filtrados
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-3 lg:p-8 max-w-4xl mx-auto mt-10">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#39BDFF]/20 to-[#64DDFF]/20 blur-3xl rounded-full"></div>
+                <div class="relative grid grid-cols-1 lg:grid-cols-3 lg:gap-6 space-y-4 lg:space-y-0">
+                    <div class="col-span-2 text-xs lg:text-base space-y-4 bg-slate-900 p-8 rounded-2xl">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Vehículo</span>
+                            <span class="text-white">BMW Serie 1 120i 2019</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Precio de compra</span>
+                            <span class="text-white">18.000 €</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Precio de importación</span>
+                            <span class="text-white">1.500 €</span>
+                        </div>
+                        <div class="bg-slate-700 my-4 h-px rounded-xl"></div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Margen estimado</span>
+                            <span class="text-[#39BDFF] font-bold text-sm lg:text-lg">28,2% <span class="text-slate-700"> | </span> 5.500 €</span>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-[#39BDFF]/20 to-[#64DDFF]/10 rounded-2xl p-3 lg:p-8 border border-[#39BDFF]/30 flex flex-col justify-center items-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] flex items-center justify-center mx-auto mb-4">
+                                  <i class="pi pi-chart-line text-slate-950"  style="font-size: 22px;"></i>
+                            </div>
+                            <h3 class="text-white font-bold text-lg mb-2">Recomendación</h3>
+                            <p class="text-[#64DDFF] font-extrabold text-xl uppercase">Comprar</p>
+                            <p class="text-slate-400 text-sm mt-2">Alto potencial de beneficio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>

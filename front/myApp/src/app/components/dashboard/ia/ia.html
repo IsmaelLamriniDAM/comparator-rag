@@ -1,0 +1,18 @@
+<div class="flex w-full gap-2">
+    <div class="grid grid-rows-[7fr_1fr] h-[95vh] rounded-xl border border-slate-700 w-full p-8 m-5">
+    
+            <div class="overflow-hidden overflow-y-scroll overflow-x-hidden">
+                <app-ai-chat-messsages [listMessages]="messagesConversation()" [title]="title()" [messageTempo]="messagesTemporaly()"></app-ai-chat-messsages>
+            </div>
+    
+            <div class="">
+                <app-ai-zone-write (questionUserSend)="callIa($event)" ></app-ai-zone-write>
+            </div>
+    
+    </div>
+    <app-ai-history-chat [(titleHistory)]="title" [(listDataHistories)]="listHistories" (createNewConversation)="createNewChat($event)" (idDataDeleteHistory)="deleteOneHistory($event)" (idViewHistory)="searchHistotyView($event)" (wantDelete)="deleteAllHistories($event)"></app-ai-history-chat>
+</div>
+
+<app-pop-up [dataDeleteConfirm]="dataDelete()" (deleteElementList)="deleteElementList($event)"></app-pop-up>
+
+

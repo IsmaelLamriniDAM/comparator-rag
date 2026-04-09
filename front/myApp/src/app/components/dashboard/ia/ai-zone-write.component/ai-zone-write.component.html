@@ -1,0 +1,11 @@
+<div class="h-full border-t-1 rounded-xl border-white-900 shadow-[0_-4px_10px_rgba(255,255,255,0.1)] 
+flex items-center justify-center">
+    <form class="w-full flex justify-center items-center gap-2" (ngSubmit)="sendQuestionIa()">
+        <input name="messageUser"  [value]="messageUser()" (input)="messageUser.set($event.target.value)" type="text" class="w-[90%]  border rounded-xl p-2 shadow-lg shadow-white/20" placeholder="Pregunta sobre el coches que quieras !!!">
+        <button 
+        type="submit" 
+        class="rounded-2xl p-2 flex justify-center items-center bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] cursor-pointer">
+            <i class="pi pi-send"></i>
+        </button>
+    </form>
+</div>

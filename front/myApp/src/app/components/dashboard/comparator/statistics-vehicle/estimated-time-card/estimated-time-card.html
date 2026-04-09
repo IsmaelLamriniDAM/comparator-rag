@@ -1,0 +1,19 @@
+<div class="bg-slate-900/50 rounded-xl p-4 border border-slate-800 mt-4">
+    <h4 class="text-slate-300 mb-3">Estadísticas de ventas</h4>
+    <div class="flex flex-row justify-between items-center">
+        <p class="text-slate-400 flex-1">Tiempo medio de venta</p>
+        @if (estimatedTime != 0) {
+            <p>{{estimatedTime}} DÍAS</p>
+        } @else {
+            <p>No disponible</p>
+        }
+    </div>
+    <div class="flex flex-row justify-between items-center">
+        <p class="text-slate-400 flex-1">Precio de cierre más frecuente</p>
+        @if (mostFrequentClosingPrice != 0) {
+            <p>{{format(mostFrequentClosingPrice)}} EUR</p>
+        } @else {
+            <p>No disponible</p>
+        }
+    </div>
+</div>

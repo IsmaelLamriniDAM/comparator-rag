@@ -1,0 +1,30 @@
+<div class="bg-slate-900/50 rounded-xl p-4 border border-slate-800">
+  <h4 class="text-slate-300 mb-2">{{ title }}</h4>
+
+  <div class="flex items-center gap-3">
+    <div class="w-12 h-12 rounded-full flex items-center justify-center"
+         [ngClass]="styles[state].bg">
+        @if (state == "buy") {
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up-icon lucide-trending-up text-green-400"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg>
+        } @else if(state == "caution") {
+            <i class="pi pi-exclamation-triangle text-yellow-400" style="font-size: 1.4rem;"></i>
+        } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-down-icon lucide-trending-down text-red-400"><path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/></svg>
+
+        }
+
+    </div>
+
+    <div>
+      <p class="text-xl sm:text-2xl font-bold"
+         [ngClass]="styles[state].text">
+        {{ money }} EUR
+      </p>
+
+      <p class="text-sm"
+         [ngClass]="styles[state].text">
+        {{ percentage }}% de beneficio
+      </p>
+    </div>
+  </div>
+</div>

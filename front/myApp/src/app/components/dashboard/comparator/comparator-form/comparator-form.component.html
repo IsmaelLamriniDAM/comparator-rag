@@ -1,0 +1,191 @@
+<div class="glass-card {{collapsed ? 'max-h-22 sm:max-h-24' : 'max-h-240 sm:max-h-screen'}} text-xs lg:text-base rounded-2xl p-6 animate-fade-in2 transition-all duration-700 ease-in-out overflow-hidden">
+    <div class="flex justify-between mb-6 ">
+        <div class="flex items-center gap-3  ">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#39BDFF]/20 to-[#64DDFF]/20 flex items-center justify-center">
+                <i class="pi-search pi text-[#39BDFF]"></i>
+            </div>
+            <div>
+                <h2 class="text-medium sm:text-lg font-semibold text-white">Analizar Vehículo</h2>
+                <p class="text-xs sm:text-sm text-slate-400">Introduce los datos del coche</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4 justify-center items-center w-55 border border-slate-800 rounded-xl p-0 cursor-pointer h-10 ">
+            <div class="hover:scale-104 duration-300" (click)="optBuyChoosed()" [class.underline]="buyOpt()">COMPRA</div>
+            <div class="rounded-xl hover:scale-104 duration-300" (click)="optSellChoosed()" [class.underline]="sellOpt()">VENTA</div>
+            <div class="rounded-xl hover:scale-104 duration-300" (click)="optbothChoosed()" [class.underline]="bothOpt()">AMBOS</div>
+        </div>
+        
+        <div class="flex items-center justify-end w-55">
+            <i (click)="toggleCollapse()" class="pi-angle-up pi text-[#39BDFF] text-slate-400 hover:bg-slate-700 p-3 rounded-xl cursor-pointer hover:text-white transition-all duration-500" [class.rotate-180]="collapsed"></i>
+        </div>
+    </div>
+
+   
+    <div>
+        <form (ngSubmit)="onSubmit(vehicleForm)" #vehicleForm="ngForm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <app-window-info [infoText]="infoBrand"></app-window-info>
+                    <label for="brand" class="text-slate-300">Marca</label>
+                    <p-select id="brand" name="brand" [options]="brandOptions" [(ngModel)]="brand" (onChange)="onBrandChange()" placeholder="Seleccionar marca" class="bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                </div>
+            
+                <div class="flex flex-col">
+                    <app-window-info [infoText]="infoModel"></app-window-info>
+                    <label for="model" class="text-slate-300">Modelos</label>
+                      <p-select id="model" [options]="modelOptions" name = "model" placeholder="Seleccionar modelo"  [(ngModel)]="model" class="bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:border-[#39BDFF]"/>
+                </div>
+
+            </div>
+            
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mt-6">
+
+               
+                <div class="flex flex-col gap-2">
+                     @if(buyOpt()) {
+                        <app-window-info [infoText]="infoPriceBuy"></app-window-info>
+                        <label for="price" class="text-slate-300">Precio de compra (EUR)</label>
+                        <p-slider  [(ngModel)]="rangeValuePriceBuy" name = "rangeValuePriceBuy" [range]="true" [min]="1000" [max]="1000000"></p-slider>
+                        <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValuePriceBuy[0]) }} €</span>
+                            <span>{{ formatter.format(rangeValuePriceBuy[1]) }} €</span>
+                        </div>
+                    } @else if (sellOpt()) {
+                        <app-window-info [infoText]="infoPriceSell"></app-window-info>
+                        <label for="price" class="text-slate-300">Precio de venta (EUR)</label>
+                        <p-slider  [(ngModel)]="rangeValuePriceSell" name = "rangeValuePriceSell" [range]="true" [min]="1000" [max]="1000000"></p-slider>
+                        <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValuePriceSell[0]) }} €</span>
+                            <span>{{ formatter.format(rangeValuePriceSell[1]) }} €</span>
+                        </div>
+                    }
+                    @if(bothOpt()) {
+                        <app-window-info [infoText]="infoPriceBuy"></app-window-info>
+                        <label for="price" class="text-slate-300">Precio de compra (EUR)</label>
+                        <p-slider  [(ngModel)]="rangeValuePriceBuy" name = "rangeValuePriceBuy" [range]="true" [min]="1000" [max]="1000000"></p-slider>
+                        <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValuePriceBuy[0]) }} €</span>
+                            <span>{{ formatter.format(rangeValuePriceBuy[1]) }} €</span>
+                        </div>
+                        <app-window-info [infoText]="infoPriceSell"></app-window-info>
+                        <label for="price" class="text-slate-300">Precio de venta (EUR)</label>
+                        <p-slider  [(ngModel)]="rangeValuePriceSell" name = "rangeValuePriceSell" [range]="true" [min]="1000" [max]="1000000"></p-slider>
+                        <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValuePriceSell[0]) }} €</span>
+                            <span>{{ formatter.format(rangeValuePriceSell[1]) }} €</span>
+                        </div>
+                    }
+                </div>
+                           
+
+                <div class="flex flex-col">
+                    <app-window-info [infoText]="infoYear"></app-window-info>
+                    <label for="year" class="text-slate-300">Año de fabricación</label>
+                    <input [(ngModel)]="year" name="year" id="year" placeholder="2019" required type="number"
+                        class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <app-window-info [infoText]="infoHp"></app-window-info>
+                    <label for="horsePower" class="text-slate-300">Caballos (CV)</label>
+                       <p-slider  [(ngModel)]="rangeValueHp" name = "rangeValueHp" [range]="true" [min]="60" [max]="400"></p-slider>
+                    <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValueHp[0]) }} cv</span>
+                            <span>{{ formatter.format(rangeValueHp[1]) }} cv</span>
+                        </div>
+                        
+                </div>
+
+                <div class="flex flex-col ">
+                    <app-window-info [infoText]="infoFuel"></app-window-info>
+                    <label for="fuelType" class="text-slate-300">Tipo de combustible</label>
+                     <p-select id="fuelType"   appendTo="body" [options]="fuelOptions" name = "fuelType" [(ngModel)]="selectedFuel" class=" bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:border-[#39BDFF] " placeholder="Tipo de combustible" />
+                </div>
+
+                <div class="flex flex-col col-end-4">
+                    <app-window-info [infoText]="infokM"></app-window-info>
+                        <label for="kmRange" class="text-slate-300 mb-4">Rango de kilómetros</label>
+                        <p-slider [(ngModel)]="rangeValues" [range]="true" name="rangeValues" [min]="0" [max]="1500000"></p-slider>
+                        <div class="flex justify-between text-slate-400 text-sm mt-2">
+                            <span>{{ formatter.format(rangeValues[0]) }} km</span>
+                            <span>{{ formatter.format(rangeValues[1]) }} km</span>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="h-px bg-slate-300/20 mt-6 mb-6"></div>
+<!-- 
+            <div>
+                <h3 class="text-white font-semibold mb-1">Filtros adicionales</h3>
+                <p class="text-sm text-slate-400 mb-4">Opciones opcionales para afinar el análisis</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="flex flex-col">
+                        <label for="extraCost" class="text-slate-300 flex items-center gap-2">
+                            Costes adicionales
+                            <span class="relative group cursor-pointer">
+                                <i class="pi pi-question-circle" style="font-size: 0.75rem;"></i>
+                                
+                                <span class="absolute mt-2 w-48 pointer-events-none z-100
+                                            bg-slate-800 text-white text-xs rounded-lg p-2 
+                                            opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Aquí se incluyen gastos como matriculación, impuestos de importación, tasas administrativas, etc.
+                                </span>
+                            </span>
+                        </label>
+
+                        <input [(ngModel)]="extraCost" name="extraCost" id="extraCost" min="0" placeholder="1300" type="number"
+                            class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="recommendationPercentage" class="text-slate-300 flex items-center gap-2">
+                            Porcentaje de Recomendación
+                            <span class="relative group cursor-pointer">
+                                <i class="pi pi-question-circle" style="font-size: 0.75rem;"></i>
+                                
+                                <span class="absolute mt-2 w-48 pointer-events-none z-100
+                                            bg-slate-800 text-white text-xs rounded-lg p-2 
+                                            opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Indica el porcentaje mínimo de rentabilidad que consideras necesario 
+                                    para que la recomendación de compra sea válida. 
+                                    Por defecto se establece en 10%. 
+                                    El valor debe estar entre 1 y 100.
+                                </span>
+                            </span>
+                        </label>
+
+                        <input [(ngModel)]="recommendationPercentage" name="recommendationPercentage" id="recommendationPercentage" placeholder="1300" type="number"
+                            class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" placeholder="10" type="number" min="0" max="100" value="10"/>
+                    </div>
+
+                     
+                </div>
+            </div> -->
+
+            <div class="flex gap-6 mt-5">
+                <button type="submit" class="bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] hover:from-[#2DA8E8] hover:to-[#51CAEF] cursor-pointer hover:scale-102 transition-all duration-300 rounded-lg p-2 text-center flex items-center justify-center text-slate-950 font-bold gap-2">
+                  
+                        @if(isLoading) {
+                            <i class="pi pi-spin pi-spinner text-slate-950 cursor-pointer"></i>
+                            Analizando el mercado
+                        } @else {
+                            <i class="pi-search pi text-slate-950 cursor-pointer"></i>
+                            Empezar el análisis
+                        }
+                </button>
+                @if (errorMessage) {
+                    <div class="p-2 rounded-lg bg-red-500/20 border border-red-500 text-red-300">
+                        {{ errorMessage }}
+                    </div>
+                }
+            </div> 
+            
+        </form>
+
+    </div> 
+</div>
