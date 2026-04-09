@@ -1,5 +1,0 @@
-export enum Recommendation {
-    RECOMMENDED = "RECOMMENDED",
-    CAUTION = "CAUTION",
-    NOT_RECOMMENDED = "NOT_RECOMMENDED"
-}

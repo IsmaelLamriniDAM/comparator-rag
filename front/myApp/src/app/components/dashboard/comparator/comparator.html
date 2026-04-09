@@ -1,7 +1,0 @@
-<div class="flex flex-col gap-3 p-8">
-    <app-comparator-form [vehicleFromFavourites]="vehicleFromFavourites()" [collapsed]="formCollapsed()" [isLoading]="isLoading()" [errorMessage]="errorMessage()" (collapseChange)="formCollapsed.set($event)"  (clickSendForm)="sendComparatorForm($event)"/>
-    <div class="flex flex-col gap-3">
-        <app-statistics-vehicle-component [isLoading]="isLoading()" [statistic]="dataResponse()"/>
-        <app-list-vehicle-component  [isLoading]="isLoading()" [vehicleList]="listVehiclesCompared()"/>
-    </div>
-</div>

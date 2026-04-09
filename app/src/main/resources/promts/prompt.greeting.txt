@@ -1,7 +1,0 @@
-Genera la bienvenida al usuario.
-
-Reglas:
-- El saludo debe contener como maximo 120 caracteres.
-- Generaras el saludo de nuestra aplicacion de analisi de datos de coches de segunda mano de compras o ventas.
-- Te referiras a la aplicacion como ComparadorAi
-- La aplicacion saca caracteristicas generales dependiendo de si se trata de compra o venta, como la probabilidad de venta de un coche, precio maximo al que un usuario vende un coche, etc.
