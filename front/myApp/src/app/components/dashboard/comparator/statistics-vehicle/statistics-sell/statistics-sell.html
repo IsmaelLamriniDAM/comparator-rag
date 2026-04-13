@@ -1,0 +1,58 @@
+<div>
+    <div>
+        <h3 class="text-lg sm:text-xl font-semibold text-white mb-4 text-center flex items-center justify-center gap-2">Análisis de Venta <span class="pi pi-money-bill"></span></h3>
+    </div>
+    <div class="flex flex-col gap-2">
+
+        <!-- BOX INFORMATION OVER CAR SENT  -->
+        <div class="w-full bg-slate-900/50 rounded-xl p-4 mb-6 border border-slate-800 flex flex-col gap-4"> 
+            <app-vehicle-user-criteria [vehicleCriteria]="statisticSell.vehicleFormSent" [operation]="operationSell"></app-vehicle-user-criteria>
+        </div>
+
+        <div class="grid grid-flow-col grid-rows-2 gap-4  bg-slate-900/50 rounded-xl p-4 mb-6 border border-slate-800">
+
+            <div class="row-span-2 bg-slate-900/70 rounded-xl p-4 text-center h-full">
+                <app-window-info [infoText]="infoMarketSumary"></app-window-info>
+                <app-market-price-summary [maxPrice]="statisticSell.marketMaxSellPrice" [minPrice]="statisticSell.marketMinSellPrice" [modePrice]="statisticSell.marketMostFrequentSellPrice"></app-market-price-summary>
+            </div>
+
+            <div class="bg-slate-900/70 rounded-xl text-center h-full p-4">
+                <app-window-info [infoText]="infoProfability"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4 class="text-center">PROBABILIDAD DE VENTA</h4>
+                    <div class="flex items-center justify-center rounded-xl rounded-xl p-4 mb-6 border border-slate-800" 
+                    [ngClass]="{ 'bg-red-900/50': statisticSell.sellProbability <= 49, 'bg-yellow-900/50': statisticSell.sellProbability >= 50 && statisticSell.sellProbability < 70, 'bg-green-700/50': statisticSell.sellProbability >= 70 }" >
+                        <h5>{{statisticSell.sellProbability}} %</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/70 rounded-xl text-center  p-4">
+                <app-window-info [infoText]="infoAverageDaysToSell"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4 class="text-center">TIEMPO MEDIO DE VENTA</h4>
+                    <div class="flex items-center justify-center rounded-xl rounded-xl p-4 mb-6 border border-slate-800"                 
+                    [ngClass]="{ 'bg-red-900/50': statisticSell.averageDaysToSell >= 90 || statisticSell.averageDaysToSell == null, 'bg-yellow-900/50': statisticSell.averageDaysToSell >= 30 && statisticSell.averageDaysToSell < 90, 'bg-green-700/50': statisticSell.averageDaysToSell < 30 }" >
+                        <h5>{{statisticSell.averageDaysToSell == null ? 'N/A' : statisticSell.averageDaysToSell}} días</h5>
+                    </div>
+
+                </div>
+            </div>
+            <div class="rounded-xl row-start-3 col-start-1 h-full">
+                <app-recommendation-card [recommendation]="getRecommendation()"></app-recommendation-card>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 text-center h-full p-4">
+                <app-window-info [infoText]="infoVehiclesCompared"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4>Nº DE VEHICULOS COMPARADOS</h4>
+    
+                    <h5>Coches: {{getCountVehiclesCompared()}}</h5>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

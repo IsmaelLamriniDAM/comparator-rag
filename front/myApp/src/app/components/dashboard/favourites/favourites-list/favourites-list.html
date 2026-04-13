@@ -1,0 +1,130 @@
+<div class="glass-card text-xs lg:text-base rounded-2xl p-6 animate-fade-in2 overflow-hidden">
+    <div class="flex justify-between mb-6 gap-1">
+        <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#39BDFF]/20 to-[#64DDFF]/20 flex items-center justify-center">
+                    <i class="pi-history pi text-[#39BDFF]"></i>
+                </div>
+                <div>
+                    <h2 class="text-medium sm:text-lg font-semibold text-white">Búsquedas favoritas</h2>
+                    <p class="hidden sm:block sm:text-sm text-slate-400">Haz click para volver a realizar la búsqueda</p>
+                </div>
+            </div>
+            
+            <div (click)="openDeleteAllPopup()" class="flex items-center px-3 py-1 text-xs cursor-pointer rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/40 transition-all duration-300">
+                Eliminar todo <i class="pi pi-times ml-1" style="font-size: x-small;"></i>
+            </div>
+        </div>
+    </div>
+    <div>
+        @if (favouritesList().length == 0) {
+            <div class="flex flex-col items-center justify-center gap-2 py-10 px-5">
+                <div class="bg-slate-800 rounded-full w-20 h-20 flex items-center justify-center mb-2">
+                    <i class="pi-exclamation-circle pi text-slate-500" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-semibold text-white">Sin búsquedas favoritas</h3>
+                <p class="text-slate-400 text-center">Haz un análisis y guárdalo como favorito para acceder más rápido después</p>
+            </div>
+        } @else {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:p-4">
+                @for (item of favouritesList(); track item.id) {
+                <div class="rounded-xl bg-slate-900/60 border border-slate-800 hover:border-[#39BDFF] p-5 shadow-md transition transform hover:scale-[1.02] flex flex-col gap-2">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center justify-center gap-4">
+                            <h3 class="text-lg font-semibold text-white uppercase">{{item.brand}} {{item.model}}</h3>
+                            <div class="relative w-4 h-5 rounded-t-sm flex items-center justify-center" [ngClass]="{
+                            'bg-green-500/20': item.recommendation === 'RECOMMENDED',
+                            'bg-yellow-800': item.recommendation === 'CAUTION',
+                            'bg-red-500/20': item.recommendation === 'NOT_RECOMMENDED'
+                            }">
+                                <i class="pi pi-check" style="font-size: 10px"></i>
+                                <div class="absolute left-1/2 -bottom-1 -translate-x-1/2 w-0 h-0
+                                border-l-[4px] border-l-transparent
+                                border-r-[4px] border-r-transparent
+                                border-t-[5px] border-t-slate-900">
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-sm text-slate-400">{{item.year}}</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-2 text-slate-300 text-sm">
+
+                        <div class="flex items-center"><i class="pi pi-wallet text-[#39BDFF] mr-2"></i>
+
+                            @if(item.operation === 'BUY') {
+                                {{item.price.rangeBuy?.min == null ? 'No especificado' : format(item.price.rangeBuy!.min)}} - 
+                                {{item.price.rangeBuy?.max == null ? 'No especificado' : format(item.price.rangeBuy!.max)}} EUR
+                            } @else if(item.operation === 'SELL') {
+                                {{item.price.rangeSell?.min == null ? 'No especificado' : format(item.price.rangeSell!.min)}} - 
+                                {{item.price.rangeSell?.max == null ? 'No especificado' : format(item.price.rangeSell!.max)}} EUR
+                            } @else {
+                                {{item.price.rangeBuy?.min == null ? 'No especificado' : format(item.price.rangeBuy!.min)}} - 
+                                {{item.price.rangeBuy?.max == null ? 'No especificado' : format(item.price.rangeBuy!.max)}} EUR
+                                 / 
+                                 {{item.price.rangeSell?.min == null ? 'No especificado' : format(item.price.rangeSell!.min)}} - 
+                                 {{item.price.rangeSell?.max == null ? 'No especificado' : format(item.price.rangeSell!.max)}} EUR
+
+                            }
+
+                        </div>
+
+                        <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fuel-icon lucide-fuel w-4 h-4 text-[#39BDFF] mr-2"><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5"/><path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16"/><path d="M2 21h13"/><path d="M3 9h11"/></svg>{{item.fuelType}}</div>
+
+                        <div class="flex items-center"><i class="pi-gauge pi text-[#39BDFF] mr-2"></i> {{ item.km.min == null ? 'No especificado' : format(item.km.min) }} - {{ item.km.max == null ? 'No especificado' : format(item.km.max) }} km</div>
+                    </div>
+                    <div class="flex  items-center">
+                        @if(item.operation === 'BUY') {
+                            <i class="pi pi-shopping-cart text-[#39BDFF] mr-2"></i>
+                        } @else if(item.operation === 'SELL') {
+                            <i class="pi pi-tag text-[#39BDFF] mr-2"></i>
+                        } @else {
+                            <i class="pi pi-exchange text-[#39BDFF] mr-2"></i>
+                        }
+                        <span class="text-sm text-slate-300">
+                            {{item.operation == 'BUY' ? 'Compra' : item.operation == 'SELL' ? 'Venta' : 'Compra/Venta'}}
+                        </span> 
+                    </div>
+
+                    <div class="flex gap-2">
+                        <div class="flex-1 mt-4">
+                            <button (click)="openDeleteOnePopup(item.id)" class="px-3 py-1 text-xs cursor-pointer rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/40 transition flex items-center justify-center">
+                                Eliminar <i class="pi pi-times ml-1" style="font-size: small;"></i>
+                            </button>
+                        </div>
+                        <div class="flex mt-4">
+                            <button (click)="analyseFavourite(item)" class="px-3 py-1 text-xs cursor-pointer rounded-lg bg-[#39BDFF]/20 text-[#39BDFF] hover:bg-[#39BDFF]/40 transition flex items-center justify-center">
+                                Analizar <i class="pi pi-angle-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<div class="fixed inset-0 z-50 flex items-center justify-center {{popupVisible() === '' ? 'hidden' : ''}}">
+  
+  <div class="absolute inset-0 bg-black/60"></div>
+
+  <div class="relative bg-slate-800 p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg max-w-md w-full mx-4 animate-fade-in2">
+    <div class="bg-red-500/20 rounded-full w-20 h-20 flex items-center justify-center mb-2">
+        <i class="pi-exclamation-circle pi text-red-500" style="font-size: 1.5rem;"></i>
+    </div>
+    <h3 class="text-lg sm:text-xl font-semibold text-white">¿Estás seguro de que quieres hacer esto?</h3>
+    <p class="text-slate-400 text-center">Si eliminas esto, no podrás volver a recuperar las búsquedas favoritas eliminadas.</p>
+    <div class="flex gap-5 mt-5">
+        <button (click)="makeAction()" class="px-3 py-1 text-medium cursor-pointer rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/40 transition flex items-center justify-center">
+            Eliminar
+        </button>
+        <button (click)="closePopup()" class="px-3 py-1 text-medium cursor-pointer rounded-lg border-3 border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-300 transition flex items-center justify-center">
+            Cancelar
+        </button>
+    </div>
+  </div>
+</div>
+
+<app-pop-up [dataDeleteConfirm] = "dataDeleteFavSearch()" (deleteElementList)="deleteFavInList($event)"></app-pop-up>

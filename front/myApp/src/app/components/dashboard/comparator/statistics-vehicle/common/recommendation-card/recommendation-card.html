@@ -1,0 +1,19 @@
+<div class="rounded-xl border p-4 h-full" [ngClass]=" [styles[recommendation].bg, styles[recommendation].border]">
+    <app-window-info [infoText]="infoRecommendation"></app-window-info>
+    <h4 class="text-slate-300 mb-2">Recomendación</h4>
+    <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" [ngClass]="styles[recommendation].bg">
+            @if (recommendation == "RECOMMENDED") {
+                <i class="pi pi-thumbs-up text-green-400" style="font-size: 1.4rem;"></i>
+            } @else if(recommendation == "CAUTION"){
+                <i class="pi pi-exclamation-triangle text-yellow-400" style="font-size: 1.4rem;"></i>
+            } @else {
+                <i class="pi pi-thumbs-down text-red-400" style="font-size: 1.4rem;"></i>
+            }
+        </div>
+        <div>
+            <p class="text-2xl font-bold" [ngClass]="styles[recommendation].textColor">{{styles[recommendation].text}}</p>
+            <p class="text-sm text-slate-400">{{styles[recommendation].desc}}</p>
+        </div>
+    </div>
+</div>

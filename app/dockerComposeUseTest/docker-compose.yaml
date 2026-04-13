@@ -1,0 +1,28 @@
+services:
+  database:
+    image: 'pgvector/pgvector:0.8.1-pg18-trixie'
+    ports:
+    - '5432:5432'
+    environment:
+    - 'POSTGRES_USER=isma'
+    - 'POSTGRES_DB=mydatabasetfg'
+    - 'POSTGRES_PASSWORD=1234'
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U isma -d mydatabasetfg"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+  pgadmin4:
+    image: 'elestio/pgadmin:latest'
+    ports:
+    - '8081:8081' 
+    environment:
+      PGADMIN_DEFAULT_EMAIL: isma@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+      PGADMIN_LISTEN_PORT: 8081
+    volumes:
+     - ./servers.json:/pgadmin4/servers.json
+volumes:
+   postgres_data:

@@ -1,0 +1,67 @@
+<div class="flex flex-col gap-4 items-center justify-center min-h-screen">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#39BDFF]/20 to-[#64DDFF]/20 backdrop-blur-lg blur-3xl rounded-full pointer-events-none h-90 w-90 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div>
+        <h2 class="text-white font-bold text-2xl">COMPARATOR IA</h2>
+    </div>
+
+    <div class="glass-card p-6 rounded-2xl flex flex-col gap-3 w-[80%] sm:w-[50%]">
+        <div>
+            <h2 class="text-white font-bold text-lg text-center">Únete a Nosotros</h2>
+            <p class="text-slate-300 text-center">Completa el registro para acceder al dashboard</p>
+        </div>
+        <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+            <div class="grid grid-cols-1 gap-4">
+                <div class="flex flex-col">
+                    <label for="name" class="text-slate-300">Nombre</label>
+                    <input ngModel name="name" id="name" placeholder="Ej: Arthur" type="text" required
+                        class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="email" class="text-slate-300">Correo electrónico</label>
+                    <input ngModel name="email" id="email" placeholder="Ej: arthur@gmail.com" type="text" required
+                        class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="phoneNumber" class="text-slate-300">Telefono</label>
+                    <input ngModel name="phoneNumber" id="phoneNumber" placeholder="644782159" type="text" required
+                        class="p-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white 
+                                placeholder:text-slate-500 focus:border-[#39BDFF]" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="password" class="text-slate-300">Contraseña</label>
+                    <div class="relative">
+                       <input ngModel name="password" id="password" type="{{showPassword() ? 'text' : 'password'}}" placeholder="••••••••••" required 
+                            class="p-2 pr-10 w-full rounded-lg bg-slate-900/50 border border-slate-700 
+                                text-white placeholder:text-slate-500 focus:border-[#39BDFF]" 
+                        />
+                        <button type="button" (click)="toggleShowPassword()"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+                        <i class="pi {{showPassword() ? 'pi-eye-slash' : 'pi-eye'}} "></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" [disabled]="loading()" class=" bg-gradient-to-r from-[#39BDFF] to-[#64DDFF] hover:from-[#2DA8E8] hover:to-[#51CAEF] cursor-pointer hover:scale-102 transition-all duration-300 rounded-lg p-2 text-center flex items-center justify-center text-slate-950 font-bold gap-2">
+                    @if (loading()) {
+                        <i class="pi pi-spin pi-spinner"></i>
+                    } @else {
+                        Crear cuenta
+                    }
+                </button>
+                @if (errorMessage) {
+                    <div class="p-2 rounded-lg bg-red-500/20 border border-red-500 text-red-300 flex-wrap break-words">
+                        {{ errorMessage }}
+                    </div>
+                }
+                <div class="text-center">
+                    <p class="text-slate-300">¿Ya tienes cuenta? <span [routerLink]="['/login']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" class="text-[#39BDFF] font-bold cursor-pointer">Inicia Sesión</span></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div [routerLink]="['/']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" class="flex gap-2 text-center cursor-pointer items-center justify-center text-slate-300 text-sm">
+        <i class="pi pi-arrow-left"></i>
+        <p>Volver al inicio</p>
+    </div>
+</div>

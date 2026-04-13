@@ -1,0 +1,92 @@
+<div>
+    <div>
+        <h3 class="text-lg sm:text-xl font-semibold text-white mb-4 text-center flex items-center justify-center gap-2">Análisis de Compra - Venta<span class="pi pi-cart-arrow-down"></span></h3>
+    </div>
+    <div class="flex flex-col gap-2">
+
+        <!-- BOX INFORMATION OVER CAR SENT  -->
+        <div class="w-full bg-slate-900/50 rounded-xl p-4 mb-6 border border-slate-800 flex flex-col gap-4"> 
+            <app-vehicle-user-criteria [vehicleCriteria]="statisticsBoth.vehicleFormSent" [operation]="operationBoth"></app-vehicle-user-criteria>
+        </div>
+
+        <div class="grid grid-rows-3 grid-cols-2 bg-slate-900/50 rounded-xl p-4 mb-6 border border-slate-800 gap-4">
+
+            <div class=" bg-slate-900/70 rounded-xl h-full p-2">
+                <app-window-info [infoText]="infoMinBuyPrice"></app-window-info>
+                <div class="flex flex-col justify-center items-center h-full gap-2">
+                    <h4>PRECIO MÍNIMO DE VENTA</h4>
+                    <h5>{{statisticsBoth.marketMinBuyPrice ==  null ? 'N/A' : statisticsBoth.marketMinBuyPrice}} €</h5>
+                </div>
+            </div>
+
+            <div class=" bg-slate-900/70 rounded-xl p-2">
+                <app-window-info [infoText]="infoVehiclesInPriceRange"></app-window-info>
+                <div class="flex flex-col justify-center items-center gap-2 h-full">
+                    <h4>Nº VEHICULOS QUE SE VENDE AL RANGO INDICADO DE VENTA</h4>
+                    <h5>{{getCountVehiclesInPriceRange()}}</h5>
+                    <h6>Coches: {{statisticsBoth.marketSellComparableVehicleCount}}</h6>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/70 rounded-xl text-center  p-4">
+                <app-window-info [infoText]="infoProfability"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4 class="text-center">PROBABILIDAD DE VENTA</h4>
+                    <div class="flex items-center justify-center rounded-xl rounded-xl p-4 mb-6 border border-slate-800" 
+                    [ngClass]="{ 'bg-red-900/50': statisticsBoth.sellSuccessProbability <= 49, 'bg-yellow-900/50': statisticsBoth.sellSuccessProbability >= 50 && statisticsBoth.sellSuccessProbability < 70, 'bg-green-700/50': statisticsBoth.sellSuccessProbability >= 70 }" >
+                        <h5>{{statisticsBoth.sellSuccessProbability}} %</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-900/70 rounded-xl text-center  p-4">
+                <app-window-info [infoText]="infoAverageDaysToSell"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4 class="text-center">TIEMPO MEDIO DE VENTA</h4>
+                    <div class="flex items-center justify-center rounded-xl rounded-xl p-4 mb-6 border border-slate-800"                 
+                    [ngClass]="{ 'bg-red-900/50': statisticsBoth.averageDaysToSell >= 90 || statisticsBoth.averageDaysToSell == null, 'bg-yellow-900/50': statisticsBoth.averageDaysToSell >= 30 && statisticsBoth.averageDaysToSell < 90, 'bg-green-700/50': statisticsBoth.averageDaysToSell < 30 }" >
+                        <h5>{{statisticsBoth.averageDaysToSell == null ? 'N/A' : statisticsBoth.averageDaysToSell}} días</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full bg-slate-900/70 rounded-xl p-4 text-center">
+                <app-window-info [infoText]="infoProfitOperation"></app-window-info>
+                <h4 class="text-center">BENEFICIO DE LA OPERACIÓN</h4>
+                <div class="flex justify-evenly items-center gap-10">
+                    <div class="border border-slate-800 rounded-xl p-4" [ngClass]="{
+                            'bg-green-700/50': statisticsBoth.estimatedSaleProfit.price > 0,
+                            'bg-red-900/50': statisticsBoth.estimatedSaleProfit.price < 0,
+                            'bg-yellow-700/50' : statisticsBoth.estimatedSaleProfit.price == 0
+                    }">
+                        @if(isWinMoney()) {
+                            <h5>DINERO HA GANAR</h5>
+                        } @else{
+                            <h5>DINERO HA PERDER</h5>
+                        }
+                        <h6>{{getPriceSaleProfit()}}</h6>
+                    </div>
+                    <div class="border border-slate-800 rounded-xl p-4"[ngClass]="{
+                            'bg-green-700/50': statisticsBoth.estimatedSaleProfit.price > 0,
+                            'bg-red-900/50': statisticsBoth.estimatedSaleProfit.price < 0,
+                            'bg-yellow-700/50' : statisticsBoth.estimatedSaleProfit.price == 0
+                    }">
+                        <h5>PORCENTAGE</h5>
+                        <h6>{{statisticsBoth.estimatedSaleProfit.percentage}} %</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-xl row-start-4 col-start-1 h-full">
+                <app-recommendation-card [recommendation]="getRecommendation()"></app-recommendation-card>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 text-center  p-4">
+                <app-window-info [infoText]="infoVehiclesCompared"></app-window-info>
+                <div class="flex flex-col items-center justify-center gap-2 h-full">
+                    <h4>Nº DE VEHICULOS COMPARADOS</h4>
+    
+                    <h5>Coches: {{getCountVehiclesCompared()}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
